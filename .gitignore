@@ -1,0 +1,58 @@
+# Windows OS clutter
+desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+*.lnk
+
+# macOS OS clutter
+.DS_Store
+.AppleDouble
+._*
+
+# Microsoft Office temp / lock files
+~$*.docx
+~$*.xlsx
+~$*.pptx
+~$*.doc
+~$*.xls
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log
+
+# Secrets (defensive)
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Logs / backups
+*.log
+*.bak
+*.backup
+
+# TEFI-specific defensive patterns
+*_CV.docx
+*_CV.pdf
+*_resume.docx
+*_resume.pdf
+client_*.json
+PII_*
+
+# Diagnostic leftovers
+_probe.txt
