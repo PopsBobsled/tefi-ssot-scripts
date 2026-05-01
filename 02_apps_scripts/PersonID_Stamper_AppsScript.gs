@@ -284,7 +284,7 @@ function _fetchUnstampedLeads() {
   var url = CONFIG.ZOHO_API_URL + '/crm/v3/' + CONFIG.MODULE +
             '?fields=id,Email,Created_Time,' + CONFIG.PERSON_ID_FIELD +
             '&per_page=' + CONFIG.BATCH_SIZE +
-            '&sort_by=Created_Time&sort_order=asc';
+            '&sort_by=Created_Time&sort_order=desc'; // newest first — ensures recent leads are stamped before older ones
 
   var options = {
     method:             'get',
