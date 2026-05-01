@@ -286,7 +286,7 @@ function _fetchUnstampedLeads() {
   // requirement for a WHERE clause). ORDER BY DESC → newest leads processed first.
   var query = 'SELECT id, Email, Created_Time, ' + CONFIG.PERSON_ID_FIELD +
               ' FROM ' + CONFIG.MODULE +
-              ' WHERE Created_Time >= \'' + CONFIG.STAMP_AFTER_DATE + '\'' +
+              ' WHERE Created_Time >= \'' + CONFIG.STAMP_AFTER_DATE + 'T00:00:00+00:00\'' +
               ' ORDER BY Created_Time DESC LIMIT ' + CONFIG.BATCH_SIZE;
 
   var result = _coqlQuery(query);
@@ -505,4 +505,63 @@ function testSlugLogic() {
   var cases = [
     ['john.smith@gmail.com',        '202604', 'TEFI-202604-johnsmith'],
     ['John.SMITH@outlook.com',      '202603', 'TEFI-202603-johnsmith'],
-    ['user_name
+    ['user_name-test@domain.nz',    '202605', 'TEFI-202605-usernametest'],
+    ['first+last@example.co.nz',    '202601', 'TEFI-202601-firstlast'],
+    ['simple@x.com',                '202604', 'TEFI-202604-simple'],
+    ['no-at-sign',                  '202604', 'TEFI-202604-noatsign']
+  ];
+
+  var pass = 0, fail = 0;
+  cases.forEach(function(c) {
+    var email    = c[0];
+    var yyyymm   = c[1];
+    var expected = c[2];
+    var slug     = _emailToSlug(email);
+    var actual   = 'TEFI-' + yyyymm + '-' + slug;
+    var ok       = actual === expected;
+    Logger.log((ok ? 'PASS' : 'FAIL') + ' | ' + email + ' → ' + actual +
+               (ok ? '' : ' (expected: ' + expected + ')'));
+    ok ? pass++ : fail++;
+  });
+  Logger.log('Slug tests: ' + pass + ' pass, ' + fail + ' fail');
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+
+/**
+ * Zoho-compatible datetime string: YYYY-MM-DDTHH:mm:ss+HH:mm
+ * Zoho rejects the Z-suffix format produced by toISOString() — must use numeric offset.
+ */
+function _zohoDatetime() {
+  var d   = new Date();
+  var pad = function(n) { return ('0' + n).slice(-2); };
+  var offset = -d.getTimezoneOffset();        // minutes
+  var sign   = offset >= 0 ? '+' : '-';
+  var oh     = pad(Math.floor(Math.abs(offset) / 60));
+  var om     = pad(Math.abs(offset) % 60);
+  return d.getFullYear()          + '-' +
+         pad(d.getMonth() + 1)    + '-' +
+         pad(d.getDate())         + 'T' +
+         pad(d.getHours())        + ':' +
+         pad(d.getMinutes())      + ':' +
+         pad(d.getSeconds())      +
+         sign + oh + ':' + om;
+}
+
+/**
+ * Prompt helper — works both bound (Spreadsheet UI) and unbound (standalone).
+ * Unbound scripts fall back to browser prompt().
+ */
+function _prompt(ui, message) {
+  if (ui) {
+    var resp = ui.prompt(message);
+    return resp.getResponseText();
+  }
+  // Standalone fallback (Apps Script doesn't support Browser.inputBox in all contexts)
+  // You can also set properties manually:
+  //   PropertiesService.getScriptProperties().setProperty('ZOHO_CLIENT_ID', 'your_id');
+  Logger.log('Cannot prompt in standalone context. Set properties manually.');
+  return null;
+}
