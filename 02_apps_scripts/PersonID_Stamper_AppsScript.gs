@@ -48,6 +48,9 @@ var CONFIG = {
   PERSON_ID_FIELD:    'Person_ID',
   BACKFILLED_AT_FIELD:'Person_ID_Backfilled_At',
   BATCH_SIZE:         50,      // leads processed per run (keep low to stay inside 6-min Apps Script limit)
+  STAMP_AFTER_DATE:   '2026-01-01', // only stamp leads created on or after this date
+                                    // legacy dormant leads (pre-2026) excluded intentionally
+                                    // backfill of old records is a deliberate future project — see CLAUDE.md 2026-04-25 decision
   DRY_RUN:            false,   // set true to log without writing to Zoho
   LOG_PREFIX:         '[TEFI-STAMP]'
 };
@@ -298,9 +301,12 @@ function _fetchUnstampedLeads() {
   }
 
   var all = JSON.parse(response.getContentText()).data || [];
-  // Filter client-side: keep only leads with blank/missing Person_ID
+  var cutoff = new Date(CONFIG.STAMP_AFTER_DATE).getTime();
+  // Filter client-side: blank Person_ID AND created on/after STAMP_AFTER_DATE
   return all.filter(function(lead) {
-    return !lead[CONFIG.PERSON_ID_FIELD] || lead[CONFIG.PERSON_ID_FIELD].trim() === '';
+    var blank = !lead[CONFIG.PERSON_ID_FIELD] || lead[CONFIG.PERSON_ID_FIELD].trim() === '';
+    var recent = lead.Created_Time ? new Date(lead.Created_Time).getTime() >= cutoff : true;
+    return blank && recent;
   });
 }
 
