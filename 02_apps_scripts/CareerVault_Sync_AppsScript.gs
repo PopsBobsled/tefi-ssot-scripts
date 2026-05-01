@@ -59,7 +59,7 @@
 // CONFIGURATION — EDIT THESE TWO LINES BEFORE RUNNING
 // ═══════════════════════════════════════════════════════════════════════
 
-const TARGET_FILE_ID = '1GN95DkidLCsGVdJaY5sSVQI6kBesTfayHcj4qPB5IAo';
+const SYNC_TARGET_FILE_ID = '1GN95DkidLCsGVdJaY5sSVQI6kBesTfayHcj4qPB5IAo';
 const SOURCE_FILE_ID = 'PASTE_LOCAL_FILE_ID_HERE_AFTER_UPLOAD';
 
 // Safety toggles
@@ -97,7 +97,7 @@ function compareSchemas() {
   Logger.log('═══════════════════════════════════════════════════════════');
   Logger.log('CAREER VAULT v3.5 — SCHEMA COMPARISON');
   Logger.log('Source: ' + SOURCE_FILE_ID);
-  Logger.log('Target: ' + TARGET_FILE_ID);
+  Logger.log('Target: ' + SYNC_TARGET_FILE_ID);
   Logger.log('═══════════════════════════════════════════════════════════\n');
 
   const result = doSchemaComparison_();
@@ -170,7 +170,7 @@ function syncToLive() {
 
 function doSchemaComparison_() {
   const sourceSS = SpreadsheetApp.openById(SOURCE_FILE_ID);
-  const targetSS = SpreadsheetApp.openById(TARGET_FILE_ID);
+  const targetSS = SpreadsheetApp.openById(SYNC_TARGET_FILE_ID);
 
   let sheetsChecked = 0;
   let sheetsClean = 0;
@@ -273,7 +273,7 @@ function doSchemaComparison_() {
 
 function syncSheet_(cfg) {
   const sourceSS = SpreadsheetApp.openById(SOURCE_FILE_ID);
-  const targetSS = SpreadsheetApp.openById(TARGET_FILE_ID);
+  const targetSS = SpreadsheetApp.openById(SYNC_TARGET_FILE_ID);
 
   const sourceSheet = sourceSS.getSheetByName(cfg.sheetName);
   const targetSheet = targetSS.getSheetByName(cfg.sheetName);
@@ -352,7 +352,7 @@ function syncSheet_(cfg) {
 function syncCareerDetail_() {
   const sheetName = 'CAREER_DETAIL';
   const sourceSS = SpreadsheetApp.openById(SOURCE_FILE_ID);
-  const targetSS = SpreadsheetApp.openById(TARGET_FILE_ID);
+  const targetSS = SpreadsheetApp.openById(SYNC_TARGET_FILE_ID);
 
   const sourceSheet = sourceSS.getSheetByName(sheetName);
   const targetSheet = targetSS.getSheetByName(sheetName);
