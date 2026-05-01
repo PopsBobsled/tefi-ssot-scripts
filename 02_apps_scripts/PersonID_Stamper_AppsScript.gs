@@ -42,8 +42,8 @@
 // ============================================================
 
 var CONFIG = {
-  ZOHO_ACCOUNTS_URL:  'https://accounts.zoho.com',   // change to accounts.zoho.com.au for AU data centre
-  ZOHO_API_URL:       'https://www.zohoapis.com',      // change to www.zohoapis.com.au for AU data centre
+  ZOHO_ACCOUNTS_URL:  'https://accounts.zoho.com.au',  // AU data centre
+  ZOHO_API_URL:       'https://www.zohoapis.com.au',    // AU data centre
   MODULE:             'Leads',
   PERSON_ID_FIELD:    'Person_ID',
   BACKFILLED_AT_FIELD:'Person_ID_Backfilled_At',
@@ -218,20 +218,36 @@ function _emailToSlug(email) {
 /**
  * Check if baseId (or baseId-NN) already exists in Zoho.
  * Returns the first available Person_ID (no suffix if clear, -01/-02/... if collisions).
+ * Uses GET all leads + client-side filter (COQL LIKE is unsupported on custom fields
+ * on Zoho Standard plan).
  */
 function _resolveCollision(baseId, currentLeadId) {
-  // COQL: find any lead with Person_ID = baseId OR starting with baseId-
-  var query = "SELECT id, " + CONFIG.PERSON_ID_FIELD +
-              " FROM " + CONFIG.MODULE +
-              " WHERE (" + CONFIG.PERSON_ID_FIELD + " = '" + baseId + "'" +
-              " OR " + CONFIG.PERSON_ID_FIELD + " LIKE '" + baseId + "-%')" +
-              " LIMIT 10";
+  var token = _getAccessToken();
+  var url = CONFIG.ZOHO_API_URL + '/crm/v3/' + CONFIG.MODULE +
+            '?fields=id,' + CONFIG.PERSON_ID_FIELD + '&per_page=200';
 
-  var result = _coqlQuery(query);
-  var existing = (result && result.data) ? result.data : [];
+  var options = {
+    method:             'get',
+    headers:            { 'Authorization': 'Zoho-oauthtoken ' + token },
+    muteHttpExceptions: true
+  };
 
-  // Filter out the current lead itself (in case it somehow has a partial value)
-  existing = existing.filter(function(r) { return r.id !== currentLeadId; });
+  var response = UrlFetchApp.fetch(url, options);
+  var code     = response.getResponseCode();
+
+  var all = [];
+  if (code === 200) {
+    all = JSON.parse(response.getContentText()).data || [];
+  } else if (code !== 204) {
+    throw new Error('Collision check failed (' + code + '): ' + response.getContentText().substring(0, 300));
+  }
+
+  // Filter client-side: records with same base or base-NN, excluding the current lead
+  var existing = all.filter(function(r) {
+    if (r.id === currentLeadId) return false;
+    var pid = r[CONFIG.PERSON_ID_FIELD] || '';
+    return pid === baseId || pid.indexOf(baseId + '-') === 0;
+  });
 
   if (existing.length === 0) {
     return baseId;  // No collision — use base
@@ -257,22 +273,35 @@ function _resolveCollision(baseId, currentLeadId) {
 
 /**
  * Fetch Leads where Person_ID is blank.
- * Uses COQL: null check on Person_ID field.
+ * Uses GET all leads + client-side filter (COQL IS NULL is unsupported on custom fields
+ * on Zoho Standard plan).
  */
 function _fetchUnstampedLeads() {
-  // Zoho COQL: IS NULL check — field criteria equals empty string doesn't reliably work;
-  // COQL supports "is null" natively since v3
-  var query = "SELECT id, Email, Created_Time, " + CONFIG.PERSON_ID_FIELD +
-              " FROM " + CONFIG.MODULE +
-              " WHERE " + CONFIG.PERSON_ID_FIELD + " IS NULL" +
-              " LIMIT " + CONFIG.BATCH_SIZE;
+  var token = _getAccessToken();
+  var url = CONFIG.ZOHO_API_URL + '/crm/v3/' + CONFIG.MODULE +
+            '?fields=id,Email,Created_Time,' + CONFIG.PERSON_ID_FIELD +
+            '&per_page=' + CONFIG.BATCH_SIZE +
+            '&sort_by=Created_Time&sort_order=asc';
 
-  var result = _coqlQuery(query);
-  if (!result || !result.data) {
-    // 204 = no records found (Zoho returns 204 for empty COQL results)
-    return [];
+  var options = {
+    method:             'get',
+    headers:            { 'Authorization': 'Zoho-oauthtoken ' + token },
+    muteHttpExceptions: true
+  };
+
+  var response = UrlFetchApp.fetch(url, options);
+  var code     = response.getResponseCode();
+
+  if (code === 204) return [];
+  if (code !== 200) {
+    throw new Error('Fetch failed (' + code + '): ' + response.getContentText().substring(0, 300));
   }
-  return result.data;
+
+  var all = JSON.parse(response.getContentText()).data || [];
+  // Filter client-side: keep only leads with blank/missing Person_ID
+  return all.filter(function(lead) {
+    return !lead[CONFIG.PERSON_ID_FIELD] || lead[CONFIG.PERSON_ID_FIELD].trim() === '';
+  });
 }
 
 /**
@@ -310,14 +339,14 @@ function _coqlQuery(query) {
 function _writePersonId(leadId, personId) {
   var token    = _getAccessToken();
   var url      = CONFIG.ZOHO_API_URL + '/crm/v3/' + CONFIG.MODULE + '/' + leadId;
-  var now      = _isoNow();
+  var now      = _zohoDatetime();
 
   var body = {
     data: [
       {
-        id:                           leadId,
-        [CONFIG.PERSON_ID_FIELD]:     personId,
-        [CONFIG.BACKFILLED_AT_FIELD]: now
+        id:                                   leadId,
+        Person_ID:                            personId,
+        Person_ID_Backfilled_At:              now
       }
     ]
   };
@@ -500,9 +529,24 @@ function testSlugLogic() {
 // UTILITIES
 // ============================================================
 
-/** ISO8601 timestamp for Zoho datetime fields. */
-function _isoNow() {
-  return new Date().toISOString();
+/**
+ * Zoho-compatible datetime string: YYYY-MM-DDTHH:mm:ss+HH:mm
+ * Zoho rejects the Z-suffix format produced by toISOString() — must use numeric offset.
+ */
+function _zohoDatetime() {
+  var d   = new Date();
+  var pad = function(n) { return ('0' + n).slice(-2); };
+  var offset = -d.getTimezoneOffset();        // minutes
+  var sign   = offset >= 0 ? '+' : '-';
+  var oh     = pad(Math.floor(Math.abs(offset) / 60));
+  var om     = pad(Math.abs(offset) % 60);
+  return d.getFullYear()          + '-' +
+         pad(d.getMonth() + 1)    + '-' +
+         pad(d.getDate())         + 'T' +
+         pad(d.getHours())        + ':' +
+         pad(d.getMinutes())      + ':' +
+         pad(d.getSeconds())      +
+         sign + oh + ':' + om;
 }
 
 /**
