@@ -276,36 +276,29 @@ function _resolveCollision(baseId, currentLeadId) {
 
 /**
  * Fetch Leads where Person_ID is blank.
- * Uses GET all leads + client-side filter (COQL IS NULL is unsupported on custom fields
- * on Zoho Standard plan).
+ * Uses COQL (not GET endpoint) because the GET ?fields= param does not reliably return
+ * the Created_Time system field. COQL WHERE Person_ID IS NULL is unsupported for custom
+ * fields on Zoho Standard plan, so we SELECT all recent leads and filter client-side.
  */
 function _fetchUnstampedLeads() {
-  var token = _getAccessToken();
-  var url = CONFIG.ZOHO_API_URL + '/crm/v3/' + CONFIG.MODULE +
-            '?fields=id,Email,Created_Time,' + CONFIG.PERSON_ID_FIELD +
-            '&per_page=' + CONFIG.BATCH_SIZE +
-            '&sort_by=Created_Time&sort_order=desc'; // newest first — ensures recent leads are stamped before older ones
+  // COQL reliably returns Created_Time; GET endpoint silently omits it.
+  // ORDER BY Created_Time DESC → newest leads processed first.
+  var query = 'SELECT id, Email, Created_Time, ' + CONFIG.PERSON_ID_FIELD +
+              ' FROM ' + CONFIG.MODULE +
+              ' ORDER BY Created_Time DESC LIMIT ' + CONFIG.BATCH_SIZE;
 
-  var options = {
-    method:             'get',
-    headers:            { 'Authorization': 'Zoho-oauthtoken ' + token },
-    muteHttpExceptions: true
-  };
+  var result = _coqlQuery(query);
+  if (!result || !result.data) return [];
 
-  var response = UrlFetchApp.fetch(url, options);
-  var code     = response.getResponseCode();
-
-  if (code === 204) return [];
-  if (code !== 200) {
-    throw new Error('Fetch failed (' + code + '): ' + response.getContentText().substring(0, 300));
-  }
-
-  var all = JSON.parse(response.getContentText()).data || [];
+  var all = result.data;
   var cutoff = new Date(CONFIG.STAMP_AFTER_DATE).getTime();
-  // Filter client-side: blank Person_ID AND created on/after STAMP_AFTER_DATE
+
+  // Filter client-side: blank Person_ID AND created on/after STAMP_AFTER_DATE.
+  // Fallback false: if Created_Time is still blank after COQL, skip the record rather
+  // than stamping with a wrong YYYYMM. Those records are handled by the backfill project.
   return all.filter(function(lead) {
     var blank = !lead[CONFIG.PERSON_ID_FIELD] || lead[CONFIG.PERSON_ID_FIELD].trim() === '';
-    var recent = lead.Created_Time ? new Date(lead.Created_Time).getTime() >= cutoff : true;
+    var recent = lead.Created_Time ? new Date(lead.Created_Time).getTime() >= cutoff : false;
     return blank && recent;
   });
 }
