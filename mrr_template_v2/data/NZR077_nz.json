@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "nzr_code": "NZR-077",
+    "template_version": "2.0",
+    "country": "NZ",
+    "generated": "2026-05-17",
+    "last_updated": "2026-05",
+    "last_updated_label": "May 2026",
+    "format_tag": "MRR PAGE: Agronomist | NZR-077 | ANZSCO 234116 | Generated 2026-05-17 | Format: v2.0"
+  },
+  "page": {
+    "title": "Agronomist Roles in New Zealand",
+    "slug": "agronomist-roles-in-new-zealand",
+    "meta_description": "Agronomist jobs in New Zealand: salary benchmarks (NZD 50k-110k), AEWV visa pathway, Green List status, regional demand, and what NZ employers look for in migrant crop advisors.",
+    "wp_id": null,
+    "parent_wp_id": 4711,
+    "canonical_url": "https://employmentforimmigration.nz/agronomist-roles-in-new-zealand/"
+  },
+  "role": {
+    "name": "Agronomist",
+    "anzsco_code": "234116",
+    "anzsco_label": "Agronomist",
+    "role_family_id": "agriculture",
+    "role_family_label": "Agriculture and Food",
+    "hub_label": "NZ Agriculture and Food Roles",
+    "hub_url": "https://employmentforimmigration.nz/nz-agriculture-food-roles/",
+    "variants": "Crop Advisor, Soil Scientist",
+    "skill_level": "1",
+    "green_list_status": "Not listed",
+    "green_list_note": "this role does not appear on the NZ Green List",
+    "nol_status": "Yes",
+    "nol_note": "eligible for AEWV with an accredited employer job offer",
+    "salary_currency": "NZD",
+    "salary_low": 50000,
+    "salary_high": 110000,
+    "salary_median": 72000
+  },
+  "counterpart": {
+    "exists": true,
+    "country": "AU",
+    "url": "https://employmentforimmigration.nz/agronomist-roles-in-australia/",
+    "label": "Agronomist Roles in Australia",
+    "eyebrow": "Also available for Australia",
+    "subtitle": "VETASSESS · CSOL eligible"
+  },
+  "intro": "This page provides a practical overview of the agronomist role in New Zealand — covering responsibilities, salary benchmarks, licensing context, and what employers look for in migrant candidates. It is written for internationally trained agronomists considering New Zealand as a destination.",
+  "role_snapshot": {
+    "description": "Agronomists in New Zealand advise on crop production, soil management, pest and disease control, and sustainable farming practices. In the NZ context, the role typically involves:",
+    "responsibilities": [
+      "Field visits and on-farm advisory services to growers and farmers",
+      "Soil testing, analysis, and fertiliser programme development",
+      "Crop selection, monitoring, and yield optimisation",
+      "Pest, weed, and disease identification and management",
+      "Compliance with NZ biosecurity and environmental regulations",
+      "Technical reporting for farm management systems (e.g. FARMAX, farm environment plans)"
+    ],
+    "typical_employers": "Agribusiness advisory firms, fertiliser and seed companies, primary industry cooperatives (Fonterra, Ravensdown, Ballance, Alliance), local councils, Crown Research Institutes (AgResearch, Plant and Food Research), and private consulting practices."
+  },
+  "salary": {
+    "source_label": "Careers.govt.nz",
+    "source_url": "https://www.careers.govt.nz/jobs-database/farming-fishing-forestry-and-mining/agriculture-horticulture/agriculturalhorticultural-scientist/",
+    "additional_sources": "PayScale, SalaryExpert NZ",
+    "data_date": "May 2026",
+    "intro": "Typical range: $50,000 to $110,000 NZD per year, depending on experience, employer, and region.",
+    "bands": [
+      {"label": "Entry level / early career", "range": "$50,000 to $62,000"},
+      {"label": "Mid-career (4 to 9 years)", "range": "$65,000 to $80,000"},
+      {"label": "Experienced / senior", "range": "$80,000 to $110,000+"}
+    ],
+    "cost_of_living_note": true,
+    "cost_of_living_numbeo_url": "https://www.numbeo.com/cost-of-living/country_result.jsp?country=New+Zealand"
+  },
+  "regional_demand": {
+    "intro": "Agronomy roles in New Zealand are concentrated in regions with intensive arable, pastoral, and horticultural production:",
+    "regions": [
+      {"name": "Canterbury / Selwyn / Ashburton", "notes": "largest arable farming region; grain, seed crops, and irrigated pastoral"},
+      {"name": "Hawke's Bay", "notes": "horticulture, viticulture, and mixed cropping"},
+      {"name": "Waikato / Bay of Plenty", "notes": "dairy farming support, kiwifruit, avocado"},
+      {"name": "Manawatu-Whanganui", "notes": "pastoral and seed production"},
+      {"name": "Northland", "notes": "subtropical horticulture, kumara, subtropical crops"}
+    ]
+  },
+  "licensing": {
+    "mandatory": false,
+    "mandatory_note": "Not required. Agronomy is an unregulated profession in New Zealand.",
+    "associations": [
+      {
+        "name": "New Zealand Institute of Agricultural and Horticultural Science (NZIAHS)",
+        "url": "https://www.nziahs.org.nz/",
+        "note": "membership validates expertise and provides access to CPD events and professional networks"
+      },
+      {
+        "name": "New Zealand Society of Soil Science (NZSSS)",
+        "url": "https://www.nzsss.org.nz/",
+        "note": "relevant for soil-focused agronomists and crop advisors"
+      }
+    ],
+    "qualification_recognition": [
+      {
+        "name": "NZQA",
+        "url": "https://www.nzqa.govt.nz/",
+        "note": "assessment of international qualifications against NZ standards (allow 10 to 15 weeks for assessment)"
+      },
+      {
+        "name": "Primary ITO",
+        "url": "https://www.primaryito.ac.nz/",
+        "note": "vocational training and qualification recognition in the primary sector"
+      }
+    ],
+    "cpd_html": "NZIAHS runs regular events and workshops. <a href=\"https://www.agritechnz.org.nz/\">AgriTechNZ</a> offers training in precision agriculture tools and emerging technologies."
+  },
+  "immigration": {
+    "licensing_required": false,
+    "licensing_note": "No mandatory professional licence. ANZSCO 234116 is a Skill Level 1 occupation.",
+    "visas": [
+      {
+        "name": "Accredited Employer Work Visa (AEWV)",
+        "description": "the primary pathway for most migrant agronomists. Requires a job offer from an INZ-accredited employer. ANZSCO 234116 is recognised under the National Occupation List (NOL) for AEWV purposes.",
+        "link_label": "Immigration New Zealand — Work Visas",
+        "link_url": "https://www.immigration.govt.nz/work/requirements-for-work-visas/"
+      },
+      {
+        "name": "Skilled Migrant Category (SMC) Resident Visa",
+        "description": "points-based pathway to residence. Agronomist at Skill Level 1 qualifies. A job offer in NZ significantly strengthens a points claim. Note: changes to the SMC take effect August 2026.",
+        "link_label": "Skilled Migrant Category Resident Visa",
+        "link_url": "https://www.immigration.govt.nz/new-zealand-visas/options/live-permanently/check-if-you-may-qualify-for-a-resident-visa/skilled-migrant-category-resident-visa"
+      }
+    ],
+    "general_note": "For most of our clients, the job offer sets into motion a clear migration process touching upon immigration compliance, timing, city selection, quality of life, and professional opportunities — the offer is the trigger for all of it."
+  },
+  "readiness_signals": [
+    {
+      "label": "NZ regulatory awareness",
+      "detail": "Familiarity with the <a href=\"https://www.mpi.govt.nz/\">Ministry for Primary Industries (MPI)</a> biosecurity framework, Hazardous Substances and New Organisms Act (HSNO), and the <a href=\"https://www.epa.govt.nz/\">Environmental Protection Authority (EPA)</a> pesticide approval system"
+    },
+    {
+      "label": "Farm systems knowledge",
+      "detail": "Understanding of common NZ farm systems — dairy, sheep/beef, arable, and horticultural — and how agronomy practice differs from your home country"
+    },
+    {
+      "label": "Tool proficiency",
+      "detail": "Experience with farm management software (FARMAX, AgriTrack) or GIS/remote sensing tools (ESRI, precision agriculture platforms) is a genuine advantage"
+    },
+    {
+      "label": "Documented field experience",
+      "detail": "Evidence of hands-on advisory work — seasons managed, crop types, soil types, yield outcomes"
+    },
+    {
+      "label": "NZ interview style",
+      "detail": "NZ interviews are conversational and reference-driven. Employers want to hear how you handled real situations — prepare specific stories and examples rather than lists of skills or job duties."
+    },
+    {
+      "label": "Cultural adaptability",
+      "detail": "NZ farming relationships are informal and trust-based. Employers value advisors who can build rapport directly with farmers, including Māori landowners. Awareness of Treaty of Waitangi principles in primary industry contexts is recognised positively."
+    },
+    {
+      "label": "References ready",
+      "detail": "NZ employers rely heavily on reference checks. Have 2 to 3 professional referees briefed and available before you apply."
+    },
+    {
+      "label": "NZIAHS membership or equivalent",
+      "detail": "Professional body membership signals a commitment to NZ professional standards"
+    }
+  ],
+  "job_boards": [
+    {"name": "AgStaff", "url": "https://www.agstaff.co.nz/", "note": "specialist agribusiness recruitment, NZ-focused"},
+    {"name": "TradeMe Jobs", "url": "https://www.trademe.co.nz/a/jobs", "note": "search: “Agronomist NZ”"},
+    {"name": "LinkedIn", "url": "https://www.linkedin.com/", "note": "search: “Agronomist New Zealand” | follow: Ravensdown, Ballance Agri-Nutrients, AgResearch"},
+    {"name": "Federated Farmers New Zealand", "url": "https://www.fedfarm.org.nz/", "note": "industry events and networks; useful for understanding who the major employers are regionally"},
+    {"name": "Direct to employer", "url": null, "note": "Ravensdown, Ballance Agri-Nutrients, Alliance Group, Fonterra, Plant and Food Research, AgResearch — all employ agronomists and crop scientists directly"}
+  ],
+  "cold_application_note": "In the NZ primary sector, most roles are filled through referral, recruiter relationships, or candidates already known to the employer — a cold application rarely lands. To be the exception, you need an exceptional profile and direct employer contact.",
+  "what_to_expect": "For skilled migrant agronomists, a realistic job search timeline in New Zealand is 3 to 6 months from a well-prepared starting point — less if your profile is already strong and outreach is targeted. TEFI's service fee is significant, but consider this: securing an agronomist role in NZ at $65,000+ per year means three months of earlier employment more than covers the investment. The goal is not just a job — it's a faster, better-positioned start.",
+  "wpcode_footer_id": "9462"
+}
