@@ -108,7 +108,7 @@ know and help you map the shortest path to a strong fit. If you are keen, you
 can book a time with me here:<br>
 <a href="https://calendly.com/tates_employment/chat-with-tate">https://calendly.com/tates_employment/chat-with-tate</a></p>
 
-<p>Warm regards,<br>Tate</p>
+<p>Best regards,<br>Tate</p>
 
 {{SIGNATURE_BLOCK}}
 ```
@@ -119,8 +119,9 @@ can book a time with me here:<br>
 
 ```html
 <p>---<br>
+Tate Ulsaker<br>
 Employment Consultant<br>
-Tate's Employment for Immigration (TEFI)<br>
+Tate's Employment for Immigration<br>
 Nelson, NZ | Gold Coast, AU<br>
 Connect with me on <a href="https://www.youtube.com/@employmentforimmigration">Youtube</a> /
 <a href="https://www.facebook.com/employmentforimmigration.nz">Facebook</a> /
@@ -134,4 +135,5 @@ Services: <a href="https://employmentforimmigration.nz/services-home/">https://e
 
 | Version | Date | Change | Confirmed by |
 |---------|------|--------|-------------|
+| 1.1 | 2026-06-14 | Sign-off and signature updated: Best regards, full name, business name without acronym | Tate |
 | 1.0 | 2026-06-13 | Initial canonical version from confirmed Totti test output | Tate |

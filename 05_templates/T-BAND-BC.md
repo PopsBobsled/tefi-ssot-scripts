@@ -1,6 +1,6 @@
 ---
 template_id: T-BAND-BC
-version: "1.0"
+version: "1.1"
 stage: L1-FirstTouch
 name: band-bc-first-touch-group
 subject: "Thank you for your CV"
@@ -15,9 +15,9 @@ calendly_url: "https://calendly.com/tates_employment/how-to-get-permanent-employ
 model: claude-sonnet-4-6
 max_tokens: 1000
 model_notes: >
-  Lighter personalisation than Band A. Sonnet generates a brief background
-  acknowledgement. No deep value-deliverable analysis. Static scaffolding
-  carries most of the email. Group Masterclass invitation, not 1-on-1.
+  Medium-depth personalisation. Sonnet names 1-2 specific qualities from the CV
+  and briefly connects to NZ/AU opportunity. Lighter than Band A: no deep sector
+  analysis, no humility beat, no dual value areas. Group Masterclass invitation.
 prompt_architecture: "Pattern B — Structured JSON + Code Template"
 ---
 
@@ -27,34 +27,38 @@ prompt_architecture: "Pattern B — Structured JSON + Code Template"
 
 You are writing a first-touch email in Tate Ulsaker's voice for Tate's Employment
 for Immigration (TEFI). The recipient is a Band B or C candidate who has submitted
-a CV. Goal: thank them, briefly acknowledge their background, and invite them to
-a free group Masterclass.
+a CV. Goal: thank them, acknowledge specific qualities from their background, and
+invite them to a free group Masterclass.
 
 ### User prompt
 
 INPUTS:
 - first_name: {{first_name}}
-- career_detail roles (titles, seniority): {{roles}}
+- career_detail roles (titles, seniority, duties): {{roles}}
 - highest_qualification: {{credentials}}
 - years_relevant_experience: {{years_experience}}
+- top_skills_keywords: {{skills}}
 
 STEPS:
-1. Write a brief, warm acknowledgement of the candidate's background. One to two
-   sentences. Reference their general field or sector, not specific achievements.
-   Frame as professional experience worth exploring, not as a verdict on quality.
-2. Return ONLY a JSON object. No preamble, no markdown fences, no trailing text.
+1. Identify 1-2 specific positive qualities from the CV: a skill area, years in
+   a particular field, industry knowledge, or a credential worth noting.
+2. Write 1-2 sentences acknowledging these qualities and briefly connecting them
+   to opportunity in New Zealand and Australia. The candidate should feel their
+   CV was actually read, not just processed.
+3. Return ONLY a JSON object. No preamble, no markdown fences, no trailing text.
 
 OUTPUT FORMAT (return exactly this structure):
 ```
 {
-  "background_summary": "(1-2 sentences acknowledging their field/sector experience)",
+  "background_summary": "(1-2 sentences naming specific qualities and connecting to NZ/AU opportunity)",
   "em_dash_check": "PASS"
 }
 ```
 
 HARD RULES:
+- Be specific. Name real qualities from the data, not generic field labels.
 - No em-dashes. No "exactly". No "stands out".
-- No quality judgements. No comparisons to other candidates.
+- No quality judgements about the person. No comparisons to other candidates.
 - Do not promise a Career Migration Report or any specific deliverable.
 - Target country is always "New Zealand and Australia" regardless of CV content.
 - Spell out acronyms in plain English on first use.
@@ -78,7 +82,7 @@ you can register for the next session here:<br>
 <p>A little about me: I have spent 18 years helping skilled professionals move into
 quality work in New Zealand and Australia. I look forward to meeting you.</p>
 
-<p>Warm regards,<br>Tate</p>
+<p>Best regards,<br>Tate</p>
 
 {{SIGNATURE_BLOCK}}
 ```
@@ -89,8 +93,9 @@ quality work in New Zealand and Australia. I look forward to meeting you.</p>
 
 ```html
 <p>---<br>
+Tate Ulsaker<br>
 Employment Consultant<br>
-Tate's Employment for Immigration (TEFI)<br>
+Tate's Employment for Immigration<br>
 Nelson, NZ | Gold Coast, AU<br>
 Connect with me on <a href="https://www.youtube.com/@employmentforimmigration">Youtube</a> /
 <a href="https://www.facebook.com/employmentforimmigration.nz">Facebook</a> /
@@ -104,4 +109,5 @@ Services: <a href="https://employmentforimmigration.nz/services-home/">https://e
 
 | Version | Date | Change | Confirmed by |
 |---------|------|--------|-------------|
-| 1.0 | 2026-06-13 | Initial canonical version, adapted from T-BAND-A | Opus |
+| 1.1 | 2026-06-14 | Prompt upgraded: name specific CV qualities instead of generic field acknowledgment; added top_skills_keywords input | Tate |
+| 1.0 | 2026-06-13 | Initial canonical version | Opus |
