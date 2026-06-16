@@ -56,10 +56,11 @@ Tate Ulsaker<br>
 Employment Consultant<br>
 Tate's Employment for Immigration<br>
 Nelson, NZ | Gold Coast, AU<br>
+Lookup Your <a href="https://employmentforimmigration.nz/nz-resources-for-different-roles/">Career Migration to New Zealand.</a><br>
+Lookup Your <a href="https://employmentforimmigration.nz/au-resources-for-different-roles/">Career Migration to Australia.</a><br>
 Connect with me on <a href="https://www.youtube.com/@employmentforimmigration">Youtube</a> /
 <a href="https://www.facebook.com/employmentforimmigration.nz">Facebook</a> /
-<a href="https://nz.linkedin.com/company/employment-for-immigration-nz">LinkedIn</a><br>
-Services: <a href="https://employmentforimmigration.nz/services-home/">https://employmentforimmigration.nz/services-home/</a></p>
+<a href="https://nz.linkedin.com/company/employment-for-immigration-nz">LinkedIn</a></p>
 ```
 
 ---
