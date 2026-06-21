@@ -1,17 +1,17 @@
 ---
 template_id: T-BAND-D
-version: "2.0"
+version: "2.1"
 stage: L1-FirstTouch
 name: band-d-acknowledge-and-redirect
 subject: "Thank you for your CV"
 band: "D"
-routing: "Masterclass track — below qualification threshold"
+routing: "LinkedIn strategy class (below qualification threshold)"
 owner: Static
 static_ratio: 100%
 trigger: L1 intake, qualified = false (Band D)
-tags: [first-touch, band-d, decline, masterclass, pipeline, cold-flow]
+tags: [first-touch, band-d, decline, linkedin-strategy, pipeline, cold-flow]
 dynamic_fields: [first_name]
-calendly_url: "https://calendly.com/tates_employment/how-to-get-permanent-employment-in-nz-australia-1"
+calendly_url: "https://calendly.com/tates_employment/linkedin-strategy-for-skilled-migrants"
 model: none
 max_tokens: 0
 model_notes: >
@@ -34,10 +34,16 @@ in New Zealand and Australia typically require for the skilled roles we work wit
 If this is not accurate, please reply and let us know so we can update your profile
 and consider the best pathway for you.</p>
 
-<p>Either way, I run a free masterclass twice a week that covers how professionals
-find quality work in New Zealand and Australia. You are welcome to join and see
-if it is useful for your situation. You can register here:<br>
-<a href="https://calendly.com/tates_employment/how-to-get-permanent-employment-in-nz-australia-1">https://calendly.com/tates_employment/how-to-get-permanent-employment-in-nz-australia-1</a></p>
+<p>Either way, I run a free LinkedIn strategy class for skilled migrants, where we
+develop your job-finding strategy and how to turn your LinkedIn profile and outreach
+into real conversations with employers in New Zealand and Australia. You are welcome
+to join and see if it is useful for your situation. I deliver it live twice every
+weekend, twelve hours apart, so people in almost any time zone can attend, at no cost.
+Here is what it covers:<br>
+<a href="https://employmentforimmigration.nz/linkedin-strategy/">https://employmentforimmigration.nz/linkedin-strategy/</a></p>
+
+<p>Lock in your class here:<br>
+<a href="https://calendly.com/tates_employment/linkedin-strategy-for-skilled-migrants">https://calendly.com/tates_employment/linkedin-strategy-for-skilled-migrants</a></p>
 
 <p>I wish you the very best in your career journey.</p>
 
@@ -78,5 +84,6 @@ Connect with me on <a href="https://www.youtube.com/@employmentforimmigration">Y
 
 | Version | Date | Change | Confirmed by |
 |---------|------|--------|-------------|
+| 2.1 | 2026-06-21 | CTA changed from masterclass to free LinkedIn strategy class (live, twice every weekend, twelve hours apart). New calendly_url linkedin-strategy-for-skilled-migrants; added linkedin-strategy page link. Kept the gentle "either way" decline framing and correction pathway. | Tate |
 | 2.0 | 2026-06-14 | Kinder decline: removed rejection language, added qualification gap explanation with correction pathway, kept masterclass invitation | Tate |
 | 1.0 | 2026-06-13 | Initial canonical version (fully static) | Opus |
